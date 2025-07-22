@@ -26,9 +26,9 @@ components:
         - name: QUARKUS_HTTP_HOST
           value: 0.0.0.0
         - name: CHE_DASHBOARD_URL
-          value: 'https://devspaces.apps.crazy-train.sandbox1935.opentlc.com/dashboard'
+          value: 'https://devspaces.apps.crazy-train.TODO.opentlc.com/dashboard'
         - name: CHE_PLUGIN_REGISTRY_URL
-          value: 'https://devspaces.apps.crazy-train.sandbox1935.opentlc.com/plugin-registry/v3'
+          value: 'https://devspaces.apps.crazy-train.TODO.opentlc.com/plugin-registry/v3'
         - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
           value: 'http://plugin-registry.openshift-devspaces.svc:8080/v3'
         - name: OPENVSX_REGISTRY_URL
@@ -126,14 +126,14 @@ commands:
   - id: install-python-requirements
     exec:
       commandLine: |
-        cd /projects/opentour2025-app/intelligent-train &&  pip install -r src/requirements.txt 
+        cd /projects/summitconnect2025-app/intelligent-train &&  pip install -r src/requirements.txt
       component: tools
       env: []
       workingDir: "/"
   - id: install-node-requirements
     exec:
       commandLine: |
-       cd /projects/opentour2025-app/train-controller && npm install 
+       cd /projects/summitconnect2025-app/train-controller && npm install
       component: tools
       env: []
       workingDir: "/"
