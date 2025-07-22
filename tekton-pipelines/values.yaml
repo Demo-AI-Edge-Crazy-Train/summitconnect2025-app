@@ -5,7 +5,7 @@ namespace: test
 components:
   intelligentTrain:
     git:
-      url: https://github.com/Demo-AI-Edge-Crazy-Train/opentour2025-app.git
+      url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
       contextDir: intelligent-train
       revision: solution
     image:
@@ -15,7 +15,7 @@ components:
     createPipelineRun: false
   captureApp:
     git:
-      url: https://github.com/Demo-AI-Edge-Crazy-Train/opentour2025-app.git
+      url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
       contextDir: capture-app
       revision: solution
     image:
@@ -25,7 +25,7 @@ components:
     createPipelineRun: true
   monitoringApp:
     git:
-      url: https://github.com/Demo-AI-Edge-Crazy-Train/opentour2025-app.git
+      url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
       contextDir: monitoring-app
       revision: solution
     image:
@@ -35,7 +35,7 @@ components:
     createPipelineRun: false
   ceqApp:
     git:
-      url: https://github.com/Demo-AI-Edge-Crazy-Train/opentour2025-app.git
+      url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
       contextDir: train-ceq-app
       revision: solution
     image:
@@ -45,7 +45,7 @@ components:
     createPipelineRun: true
   trainController:
     git:
-      url: https://github.com/Demo-AI-Edge-Crazy-Train/opentour2025-app.git
+      url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
       contextDir: train-controller
       revision: solution
     image:
