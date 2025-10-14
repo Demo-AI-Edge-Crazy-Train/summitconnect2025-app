@@ -10,7 +10,9 @@ fi
 TEMP_DIR=$(mktemp -d /tmp/gitops.XXXXXX)
 trap 'rm -rf ${TEMP_DIR}' EXIT
 
-git clone https://github.com/Demo-AI-Edge-Crazy-Train/gitops.git ${TEMP_DIR}
+. /etc/default/bootstrap-microshift
+
+git clone "${GIT_REPO_URL}" -b "${GIT_BRANCH:-main}" ${TEMP_DIR}
 
 declare -a HELM_VALUES_ARGS=()
 while IFS= read -r line; do
@@ -20,10 +22,10 @@ while IFS= read -r line; do
     if [[ -n "$line" ]]; then
         HELM_VALUES_ARGS+=("--set" "$line")
     fi
-done < /etc/default/bootstrap-microshift
+done <<< "${HELM_VALUES}"
 
-helm dependency build ${TEMP_DIR}/train
-helm template train ${TEMP_DIR}/train "${HELM_VALUES_ARGS[@]}" > /etc/microshift/manifests.d/crazy-train/payload.yaml
+helm dependency build ${TEMP_DIR}/deployment
+helm template train ${TEMP_DIR}/deployment "${HELM_VALUES_ARGS[@]}" > /etc/microshift/manifests.d/crazy-train/payload.yaml
 cat > /etc/microshift/manifests.d/crazy-train/kustomization.yaml <<"EOF"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
