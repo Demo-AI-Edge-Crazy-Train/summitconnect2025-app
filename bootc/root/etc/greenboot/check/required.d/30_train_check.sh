@@ -53,7 +53,7 @@ for (( attempt=1; attempt<=MAX_ATTEMPTS; attempt++ )); do
   echo "Sleeping for 10 seconds to allow services to settle..."
   sleep 10
   echo "And then start the demo!"
-  oc -n train rsh deploy/capture-app curl -sSfL -X POST http://localhost:8080/capture/start
+  oc -n train rsh deploy/capture-app curl -sSfL -X POST http://localhost:8080/capture/test
   echo
   exit 0
 done

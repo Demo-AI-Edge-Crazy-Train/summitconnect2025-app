@@ -13,19 +13,6 @@ data:
     allow_anonymous true
     log_dest file /mosquitto/log/mosquitto.log
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mosquitto-data
-  namespace: {{ .Values.namespace }}
-spec:
-  storageClassName: gp3-csi
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -77,8 +64,7 @@ spec:
         configMap:
           name: mosquitto-config
       - name: data
-        persistentVolumeClaim:
-          claimName: mosquitto-data
+        emptyDir: {}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

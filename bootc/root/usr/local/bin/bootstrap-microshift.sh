@@ -25,7 +25,7 @@ while IFS= read -r line; do
 done <<< "${HELM_VALUES}"
 
 helm dependency build ${TEMP_DIR}/deployment
-helm template train ${TEMP_DIR}/deployment "${HELM_VALUES_ARGS[@]}" > /etc/microshift/manifests.d/crazy-train/payload.yaml
+helm template train ${TEMP_DIR}/deployment "${HELM_VALUES_ARGS[@]}" --set namespace=train > /etc/microshift/manifests.d/crazy-train/payload.yaml
 cat > /etc/microshift/manifests.d/crazy-train/namespace.yaml <<"EOF"
 apiVersion: v1
 kind: Namespace
