@@ -18,7 +18,7 @@ This helper function takes the component name and returns the image name + tag f
 {{- if (hasKey (get .Values.components .name).image "name") -}}
 {{- (get .Values.components .name).image.name -}}:{{- (get .Values.components .name).image.tag -}}
 {{- else -}}
-{{- $mapping := (dict "intelligentTrain" "intelligent-train" "captureApp" "capture-app" "monitoringApp" "monitoring-app" "ceqApp" "ceq-app" "trainController" "train-controller") -}}
+{{- $mapping := (dict "intelligentTrain" "intelligent-train" "captureApp" "capture-app" "monitoringApp" "monitoring-app" "ceqApp" "ceq-app" "trainController" "train-controller" "bootcImage" "bootc-image") -}}
 image-registry.openshift-image-registry.svc:5000/{{- .Values.namespace -}}/{{- (get $mapping .name) -}}:{{- (get .Values.components .name).image.tag -}}
 {{- end -}}
 {{- end -}}

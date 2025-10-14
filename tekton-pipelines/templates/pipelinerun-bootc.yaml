@@ -1,0 +1,55 @@
+{{- if and .Values.runPipelines .Values.components.bootcImage.createPipelineRun -}}
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: bootc-
+  namespace: {{ .Values.namespace }}
+spec:
+  pipelineRef:
+    name: bootc
+  params:
+  - name: git-url
+    value: {{ include "gitUrl" (dict "Values" .Values "name" "bootcImage") | quote }}
+  - name: git-revision
+    value: {{ include "gitRevision" (dict "Values" .Values "name" "bootcImage") | quote }}
+  - name: image-name
+    value: {{ include "image" (dict "Values" .Values "name" "bootcImage") | quote }}
+  - name: context-dir
+    value: {{ include "gitContextDir" (dict "Values" .Values "name" "bootcImage") | quote }}
+  - name: containerfile-path
+    value: "{{ include "gitContextDir" (dict "Values" .Values "name" "bootcImage") }}/Containerfile"
+  - name: fleet-label-selector
+    value: {{ .Values.components.bootcImage.fleetLabelSelector | quote }}
+  workspaces:
+  - name: source-workspace
+    volumeClaimTemplate:
+      spec:
+        storageClassName: {{ .Values.tektonPipelines.workspaces.storageClassName | quote }}
+        accessModes:
+        - ReadWriteMany
+        resources:
+          requests:
+            storage: 1Gi
+  - name: flightctl-config
+    secret:
+      secretName: flightctl-config
+  - name: etc-pki-entitlement
+    secret:
+      secretName: etc-pki-entitlement
+      items:
+      - key: aarch64.pem
+        path: aarch64.pem
+      - key: aarch64-key.pem
+        path: aarch64-key.pem
+  taskRunTemplate:
+    serviceAccountName: buildbot
+  taskRunSpecs:
+  - pipelineTaskName: buildah
+    podTemplate:
+      nodeSelector:
+        beta.kubernetes.io/arch: arm64
+      tolerations:
+      - key: "emea-open-demo.redhat.com/arm64-architecture"
+        operator: "Exists"
+        effect: "NoSchedule"
+{{- end -}}

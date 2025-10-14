@@ -1,0 +1,8 @@
+components:
+  captureApp:
+    createPipelineRun: true
+  ceqApp:
+    createPipelineRun: true
+  trainController:
+    createPipelineRun: true
+runPipelines: true

@@ -22,7 +22,7 @@ components:
       #name: quay.io/demo-ai-edge-crazy-train/train-capture-image-app
       #secretName: quay-authentication
       tag: latest
-    createPipelineRun: true
+    createPipelineRun: false
   monitoringApp:
     git:
       url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
@@ -42,7 +42,7 @@ components:
       #name: quay.io/demo-ai-edge-crazy-train/train-ceq-app
       #secretName: quay-authentication
       tag: latest
-    createPipelineRun: true
+    createPipelineRun: false
   trainController:
     git:
       url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
@@ -52,4 +52,15 @@ components:
       #name: quay.io/demo-ai-edge-crazy-train/train-controller
       #secretName: quay-authentication
       tag: latest
-    createPipelineRun: true
+    createPipelineRun: false
+  bootcImage:
+    #fleetLabelSelector: "fleet=userXY"
+    git:
+      url: https://github.com/Demo-AI-Edge-Crazy-Train/summitconnect2025-app.git
+      contextDir: bootc
+      revision: main
+    image:
+      #name: default-route-openshift-image-registry.apps.crazy-train.sandboxXYZT.opentlc.com/userUV-test/bootc-image
+      #secretName: quay-authentication
+      tag: latest
+    createPipelineRun: false
