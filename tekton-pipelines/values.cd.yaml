@@ -2,8 +2,7 @@ components:
   bootcImage:
     # TODO: You will have to set the fleet label selector
     fleetLabelSelector: "fleet=userXY"
-    image:
-      # TODO: You will have to update the image name to reference your own namespace (userXY)
-      name: default-route-openshift-image-registry.apps.crazy-train.sandbox1781.opentlc.com/userXY-test/bootc-image
+    # TODO: You will have to update the image name to reference your own namespace (userXY)
+    externalImageName: default-route-openshift-image-registry.apps.crazy-train.sandbox1781.opentlc.com/userXY-test/bootc-image
     createPipelineRun: true
 runPipelines: true
