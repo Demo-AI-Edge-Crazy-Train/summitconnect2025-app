@@ -12,6 +12,9 @@ spec:
   - name: registry-token
     optional: true
   - name: maven-settings
+  - name: git-auth
+    description: An optional workspace that allows providing SSH keys or .gitconfig file for git authentication. The SSH keys should be placed at the root of the Workspace with names id_rsa and id_rsa.pub. The .gitconfig file should also be placed at the root of the Workspace with name .gitconfig.
+    optional: true
 
   params:
   - name: git-url
@@ -33,30 +36,34 @@ spec:
   - name: clone-repo-x86-64
     taskRef:
       kind: Task
-      name: git-clone
+      name: git
     params:
-    - name: url
+    - name: URL
       value: $(params.git-url)
-    - name: revision
+    - name: REVISION
       value: $(params.git-revision)
     workspaces:
     - name: output
       workspace: sources
       subPath: src-x86_64
+    - name: basic-auth
+      workspace: git-auth
 
   - name: clone-repo-aarch64
     taskRef:
       kind: Task
-      name: git-clone
+      name: git
     params:
-    - name: url
+    - name: URL
       value: $(params.git-url)
-    - name: revision
+    - name: REVISION
       value: $(params.git-revision)
     workspaces:
     - name: output
       workspace: sources
       subPath: src-aarch64
+    - name: basic-auth
+      workspace: git-auth
 
   - name: maven-package-x86-64
     runAfter: ["clone-repo-x86-64"]

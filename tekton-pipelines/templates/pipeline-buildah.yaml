@@ -11,6 +11,9 @@ spec:
   - name: oci-images
   - name: registry-token
     optional: true
+  - name: git-auth
+    description: An optional workspace that allows providing SSH keys or .gitconfig file for git authentication. The SSH keys should be placed at the root of the Workspace with names id_rsa and id_rsa.pub. The .gitconfig file should also be placed at the root of the Workspace with name .gitconfig.
+    optional: true
 
   params:
   - name: git-url
@@ -32,15 +35,17 @@ spec:
   - name: clone-repo
     taskRef:
       kind: Task
-      name: git-clone
+      name: git
     params:
-    - name: url
+    - name: URL
       value: $(params.git-url)
-    - name: revision
+    - name: REVISION
       value: $(params.git-revision)
     workspaces:
     - name: output
       workspace: source-workspace
+    - name: basic-auth
+      workspace: git-auth
   
   - name: build-x86-64
     runAfter: ["clone-repo"]
