@@ -11,7 +11,7 @@ dnf config-manager --enable ansible-automation-platform-2.5-for-rhel-9-$(arch)-r
 dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 
 # Install packages
-dnf install -y mkpasswd flightctl-agent
+dnf install -y mkpasswd flightctl-agent cockpit cockpit-podman
 dnf clean all
 
 # Create admin user if specified
@@ -26,7 +26,7 @@ RUN <<EOF
 set -Eeuo pipefail
 
 # Enable systemd services and sockets
-systemctl enable flightctl-agent.service sshd.service microshift-train-manifests.service
+systemctl enable flightctl-agent.service sshd.service microshift-train-manifests.service cockpit.socket
 
 # Make sure the flightctl-agent is the only one that can apply updates
 systemctl mask bootc-fetch-apply-updates.timer
