@@ -53,6 +53,7 @@ spec:
     taskRef:
       kind: Task
       name: git
+      apiVersion: tekton.dev/v1beta1
     params:
     - name: URL
       value: $(params.git-url)
@@ -67,7 +68,9 @@ spec:
   - name: buildah
     runAfter: ["clone-repo"]
     taskRef:
+      kind: Task
       name: buildah-bootc
+      apiVersion: tekton.dev/v1beta1
     params:
     - name: context-dir
       value: $(params.context-dir)
@@ -88,7 +91,9 @@ spec:
   - name: flightctl-update-digest
     runAfter: ["buildah"]
     taskRef:
+      kind: Task
       name: flightctl-update-digest
+      apiVersion: tekton.dev/v1beta1
     params:
     - name: image-name
       value: $(params.external-image-name)
